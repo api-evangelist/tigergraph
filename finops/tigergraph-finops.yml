@@ -1,0 +1,100 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: TigerGraph
+providerId: tigergraph
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Graph Database
+- Analytics
+- GSQL
+- REST++
+- Graph Analytics
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of TigerGraph Savanna (Cloud) spend. Savanna bills compute per
+  hour by workspace size (TG-00 through TG-64), with region-tier and High
+  Availability multipliers, and storage per GB per month metered with
+  fine-grained precision. A Free tier ($0/GB, auto-stop enforced) and add-ons
+  (Insights at 10% of base compute; GraphStudio and GraphQL free) round out the
+  bill. Self-managed TigerGraph DB is licensed separately and not metered here.
+notes: >-
+  Compute and storage rates vary by region tier and HA configuration; verify
+  against the Savanna pricing page during reconciliation.
+sources:
+- https://www.tigergraph.com/savanna-pricing/
+- https://docs.tigergraph.com/savanna/main/overview/pricing
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: TigerGraph
+serviceCategory: Databases
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: TigerGraph Savanna
+  ServiceCategory: Databases
+  ProviderName: TigerGraph
+  PublisherName: TigerGraph
+  InvoiceIssuerName: TigerGraph
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: compute_hours
+  description: Workspace compute hours billed per hour by size (TG-00 through TG-64).
+  unit: hours
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+  - size
+  - region
+- name: storage_gb_month
+  description: Stored data billed per GB per month, metered with fine-grained precision.
+  unit: gigabyte-months
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+  - region
+- name: ha_multiplier
+  description: High Availability replica multiplier applied to compute (2.8x <= TG-8; 1.95x > TG-8).
+  unit: multiplier
+  aggregation: max
+  dimensions:
+  - account
+  - workspace
+- name: addon_insights
+  description: Insights add-on billed at 10% of base compute price per workspace.
+  unit: percent
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+principles:
+- name: Visibility
+  description: Pull Savanna usage exports; inspect per-workspace compute hours and storage GB.
+- name: Allocation
+  description: Tag workspaces per team/project; map to internal cost centers.
+- name: Optimization
+  description: Use auto-stop and pause/resume; right-size workspaces; reserve HA for production; keep Free tier for dev/test.
+- name: Accountability
+  description: Assign owners per workspace; review compute and storage spend monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

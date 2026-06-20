@@ -1,0 +1,625 @@
+{
+  "item": [
+    {
+      "id": "a1f0c1d2-0001-4001-8001-000000000001",
+      "name": "Authentication",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c1d2-0001-4001-8001-000000000002",
+          "name": "Request an authentication token.",
+          "request": {
+            "name": "Request an authentication token.",
+            "description": {
+              "content": "Exchanges a GSQL-generated secret for a bearer authentication token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restpp",
+                "requesttoken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secret\": \"<string>\",\n  \"lifetime\": \"100000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c1d2-0002-4001-8001-000000000001",
+      "name": "System",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c1d2-0002-4001-8001-000000000002",
+          "name": "Health check.",
+          "request": {
+            "name": "Health check.",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0002-4001-8001-000000000003",
+          "name": "Echo a request.",
+          "request": {
+            "name": "Echo a request.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "echo"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0002-4001-8001-000000000004",
+          "name": "Show component versions.",
+          "request": {
+            "name": "Show component versions.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "version"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c1d2-0003-4001-8001-000000000001",
+      "name": "Schema",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c1d2-0003-4001-8001-000000000002",
+          "name": "List installed endpoints.",
+          "request": {
+            "name": "List installed endpoints.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "endpoints",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0003-4001-8001-000000000003",
+          "name": "Retrieve graph schema metadata.",
+          "request": {
+            "name": "Retrieve graph schema metadata.",
+            "description": {},
+            "url": {
+              "path": [
+                "gsql",
+                "v1",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "graph",
+                  "value": "MyGraph"
+                }
+              ],
+              "variable": []
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c1d2-0004-4001-8001-000000000001",
+      "name": "Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c1d2-0004-4001-8001-000000000002",
+          "name": "Upsert vertices and edges.",
+          "request": {
+            "name": "Upsert vertices and edges.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "graph",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vertices\": {},\n  \"edges\": {}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0004-4001-8001-000000000003",
+          "name": "List vertices of a type.",
+          "request": {
+            "name": "List vertices of a type.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "graph",
+                ":graph_name",
+                "vertices",
+                ":vertex_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                },
+                {
+                  "key": "vertex_type",
+                  "value": "Person"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0004-4001-8001-000000000004",
+          "name": "Retrieve a single vertex.",
+          "request": {
+            "name": "Retrieve a single vertex.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "graph",
+                ":graph_name",
+                "vertices",
+                ":vertex_type",
+                ":vertex_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                },
+                {
+                  "key": "vertex_type",
+                  "value": "Person"
+                },
+                {
+                  "key": "vertex_id",
+                  "value": "1"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0004-4001-8001-000000000005",
+          "name": "List edges from a source vertex.",
+          "request": {
+            "name": "List edges from a source vertex.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "graph",
+                ":graph_name",
+                "edges",
+                ":source_type",
+                ":source_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                },
+                {
+                  "key": "source_type",
+                  "value": "Person"
+                },
+                {
+                  "key": "source_id",
+                  "value": "1"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "a1f0c1d2-0005-4001-8001-000000000001",
+      "name": "Query",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0c1d2-0005-4001-8001-000000000002",
+          "name": "Run an installed GSQL query (GET).",
+          "request": {
+            "name": "Run an installed GSQL query (GET).",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "query",
+                ":graph_name",
+                ":query_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                },
+                {
+                  "key": "query_name",
+                  "value": "myQuery"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0005-4001-8001-000000000003",
+          "name": "Run an installed GSQL query (POST).",
+          "request": {
+            "name": "Run an installed GSQL query (POST).",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "query",
+                ":graph_name",
+                ":query_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                },
+                {
+                  "key": "query_name",
+                  "value": "myQuery"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0005-4001-8001-000000000004",
+          "name": "Run an interpreted GSQL query.",
+          "request": {
+            "name": "Run an interpreted GSQL query.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "interpreted_query",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "INTERPRET QUERY () FOR GRAPH MyGraph { PRINT \"hello\"; }",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1f0c1d2-0005-4001-8001-000000000005",
+          "name": "Find the shortest path between vertices.",
+          "request": {
+            "name": "Find the shortest path between vertices.",
+            "description": {},
+            "url": {
+              "path": [
+                "restpp",
+                "path",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "graph_name",
+                  "value": "MyGraph"
+                }
+              ]
+            },
+            "header": [],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9000",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a1f0c1d2-0000-4001-8001-000000000000",
+    "name": "TigerGraph REST++ API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Built-in TigerGraph REST++ API: vertices, edges, run GSQL queries, schema, and bearer-token authentication. Default port 9000 (unified on 14240 in 3.x+).\n\nContact Support:\n Name: TigerGraph Support\n URL: https://www.tigergraph.com/support/",
+      "type": "text/plain"
+    }
+  }
+}

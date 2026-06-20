@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: TigerGraph
+providerId: tigergraph
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Graph Database
+- Analytics
+- GSQL
+- REST++
+- Graph Analytics
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The TigerGraph REST++ API does not publish fixed per-second request quotas;
+  throughput is governed by the database server's configuration and the size of
+  the deployed workspace. REST++ exposes RESTPP.Factor.DefaultQueryTimeout (the
+  GSQL.QUERY timeout) and a configurable maximum response buffer/result size,
+  and concurrent query execution is bounded by the workspace's CPU and memory.
+  On TigerGraph Savanna, effective throughput scales with the chosen workspace
+  size, and customer level (Free, Paid, Premium, Enterprise) governs workspace
+  count and resource quotas. Specific numeric limits are not reconciled here.
+notes: >-
+  Verify timeout (DefaultQueryTimeout / GSQL-TIMEOUT header), response-size, and
+  concurrency settings in the TigerGraph configuration reference, and workspace
+  / customer-level quotas in the Savanna quota policy, on reconciliation.
+sources:
+- https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+- https://docs.tigergraph.com/savanna/main/resources/quota_policy
+- https://docs.tigergraph.com/tigergraph-server/current/reference/configuration-parameters
+responseCodes:
+  throttled: 503
+limits:
+- name: Query Timeout
+  scope: query
+  metric: seconds
+  limit: see provider documentation
+  notes: Governed by DefaultQueryTimeout / overridable per-request via the GSQL-TIMEOUT header.
+- name: Response Size
+  scope: request
+  metric: bytes
+  limit: see provider documentation
+  notes: Maximum REST++ response buffer / result size is server-configurable.
+- name: Concurrent Queries
+  scope: workspace
+  metric: queries
+  limit: see provider documentation
+  notes: Bounded by workspace CPU/memory; scales with TigerGraph Savanna workspace size.
+- name: Workspace Quota
+  scope: account
+  metric: workspaces
+  limit: 1 R/W + 2 read-only (Free tier)
+  notes: Raised at Paid, Premium, and Enterprise customer levels.
+policies:
+- name: Tiered Quotas
+  description: Workspace count and resource quotas increase across Free, Paid, Premium, and Enterprise customer levels on Savanna.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and retry on transient 503 / connection errors.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

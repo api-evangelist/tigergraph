@@ -1,0 +1,174 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: TigerGraph
+providerId: tigergraph
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Graph Database
+- Analytics
+- GSQL
+- REST++
+- Graph Analytics
+- Plans
+description: >-
+  TigerGraph Savanna (Cloud) uses a usage-based pricing model where compute and
+  storage scale independently. Compute is billed per hour by workspace size
+  (TG-00 through TG-64) with prices that vary by region tier, and storage is
+  billed per GB per month. A Free tier provides $0/GB workspaces (1 read/write
+  plus 2 read-only) with auto-stop always enabled. Paid, Premium, and Enterprise
+  customer levels raise quotas and add features. The self-managed TigerGraph
+  database (REST++ / GSQL) is licensed separately and is not metered through
+  Savanna usage.
+notes: >-
+  Compute prices shown are for US East (N. Virginia), Tier 1, on-demand. Higher
+  region tiers and High Availability multipliers increase the effective rate.
+  Verify the live pricing page for the current workspace catalog, regional
+  multipliers, and add-on prices.
+sources:
+- https://www.tigergraph.com/savanna-pricing/
+- https://docs.tigergraph.com/savanna/main/overview/pricing
+- https://docs.tigergraph.com/savanna/main/resources/quota_policy
+plans:
+- id: tigergraph-savanna-free
+  name: Free
+  type: free
+  description: >-
+    Zero-cost tier for testing TigerGraph Savanna with auto-stop always enabled;
+    includes 1 read/write workspace and 2 read-only workspaces, up to 32 vCPUs
+    and 256GB RAM per workspace.
+  entries:
+  - label: Free Compute
+    name: free_compute
+    type: free
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0 per GB/month (auto-stop enforced)
+    userMultiplied: false
+  elements:
+  - name: REST++ Data API
+  - name: Query API
+  - name: GraphStudio
+  - name: GraphQL
+- id: tigergraph-savanna-usage
+  name: Savanna Pay-as-you-go
+  type: usage
+  description: >-
+    Usage-based compute and storage where workspaces are billed per hour in use
+    by size and storage is billed per GB per month, metered with fine-grained
+    precision. Prices are Tier 1 (US East) on-demand.
+  entries:
+  - label: Compute TG-00 (2 vCPU / 16GB)
+    name: compute_tg_00
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $1 per hour
+    userMultiplied: false
+  - label: Compute TG-0 (4 vCPU / 32GB)
+    name: compute_tg_0
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $2 per hour
+    userMultiplied: false
+  - label: Compute TG-1 (8 vCPU / 64GB)
+    name: compute_tg_1
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $4 per hour
+    userMultiplied: false
+  - label: Compute TG-2 (16 vCPU / 128GB)
+    name: compute_tg_2
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $8 per hour
+    userMultiplied: false
+  - label: Compute TG-4 (32 vCPU / 256GB)
+    name: compute_tg_4
+    type: usage
+    metric: hours
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $16 per hour (scales to TG-64 at $256/hour)
+    userMultiplied: false
+  - label: Storage
+    name: storage
+    type: usage
+    metric: gigabytes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.025 per GB/month (Tier 1; up to $0.044 in Tier 4)
+    userMultiplied: false
+  - label: High Availability Multiplier
+    name: ha_multiplier
+    type: usage
+    metric: multiplier
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2.8x compute (<= TG-8) / 1.95x compute (> TG-8)
+    userMultiplied: false
+  - label: Insights Add-on
+    name: addon_insights
+    type: usage
+    metric: percent
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 10% of base compute price per workspace
+    userMultiplied: false
+  elements:
+  - name: REST++ Data API
+  - name: Query API
+  - name: Schema API
+  - name: Auth & Tokens API
+- id: tigergraph-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Volume commitments, self-managed / on-prem licensing, premium regions,
+    dedicated support, and negotiated terms. Contact TigerGraph sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Self-managed TigerGraph DB
+  - name: Premium Regions
+  - name: Custom Volume Pricing
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

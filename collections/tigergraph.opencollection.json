@@ -1,0 +1,225 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TigerGraph REST++ API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request an authentication token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/requesttoken",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"secret\": \"<string>\",\n  \"lifetime\": \"100000\"\n}"
+            }
+          },
+          "docs": "Exchanges a GSQL-generated secret for a bearer authentication token."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health check.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/api/ping"
+          },
+          "docs": "Returns a success response if the REST++ server is up."
+        },
+        {
+          "info": {
+            "name": "Echo a request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/echo"
+          },
+          "docs": "Returns a canned response confirming the server can receive requests."
+        },
+        {
+          "info": {
+            "name": "Show component versions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/version"
+          },
+          "docs": "Shows TigerGraph component versions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Schema",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List installed endpoints.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/endpoints/MyGraph"
+          },
+          "docs": "Lists built-in, dynamic, and static endpoints for a graph."
+        },
+        {
+          "info": {
+            "name": "Retrieve graph schema metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/gsql/v1/schema?graph=MyGraph"
+          },
+          "docs": "Returns vertex types, edge types, and attributes for a graph."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upsert vertices and edges.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/graph/MyGraph",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"vertices\": {},\n  \"edges\": {}\n}"
+            }
+          },
+          "docs": "Inserts or updates vertices and/or edges in a graph."
+        },
+        {
+          "info": {
+            "name": "List vertices of a type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/MyGraph/vertices/Person?limit=10"
+          },
+          "docs": "Returns all vertices of a type with optional select/filter/limit/sort."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single vertex.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/MyGraph/vertices/Person/1"
+          },
+          "docs": "Returns a single vertex by type and primary ID."
+        },
+        {
+          "info": {
+            "name": "List edges from a source vertex.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/MyGraph/edges/Person/1"
+          },
+          "docs": "Returns edges from a source vertex."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run an installed GSQL query (GET).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/query/MyGraph/myQuery"
+          },
+          "docs": "Runs an installed GSQL query exposed as a dynamic REST++ endpoint."
+        },
+        {
+          "info": {
+            "name": "Run an installed GSQL query (POST).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/query/MyGraph/myQuery",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Runs an installed GSQL query with parameters in the request body."
+        },
+        {
+          "info": {
+            "name": "Run an interpreted GSQL query.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/interpreted_query/MyGraph",
+            "body": {
+              "type": "text",
+              "data": "INTERPRET QUERY () FOR GRAPH MyGraph { PRINT \"hello\"; }"
+            }
+          },
+          "docs": "Runs a GSQL query in interpreted mode without installing it."
+        },
+        {
+          "info": {
+            "name": "Find the shortest path between vertices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/path/MyGraph"
+          },
+          "docs": "Finds the shortest path between two vertices."
+        }
+      ]
+    }
+  ]
+}

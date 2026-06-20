@@ -1,0 +1,148 @@
+aid: tigergraph
+url: https://raw.githubusercontent.com/api-evangelist/tigergraph/refs/heads/main/apis.yml
+name: TigerGraph
+kind: company
+description: TigerGraph is a distributed, native parallel graph database and analytics
+  platform. Its database server exposes a built-in REST++ API for reading and writing
+  vertices and edges, running installed GSQL queries, managing schema, and issuing
+  authentication tokens, alongside the GSQL server and the fully managed TigerGraph
+  Savanna (Cloud) service.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Graph Database
+- Analytics
+- GSQL
+- REST++
+- Graph Analytics
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: tigergraph:tigergraph-restpp-data-api
+  name: TigerGraph REST++ Data API (Vertices & Edges)
+  tags:
+  - Vertices
+  - Edges
+  - Upsert
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000/restpp
+  properties:
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: Documentation
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: APIReference
+  - url: openapi/tigergraph-openapi.yml
+    type: OpenAPI
+  - url: collections/tigergraph.postman_collection.json
+    type: PostmanCollection
+  - url: collections/tigergraph.opencollection.json
+    type: OpenCollection
+  description: Built-in REST++ endpoints to retrieve, upsert, and delete vertices and
+    edges in a graph by type and ID, with select / filter / limit / sort parameters.
+- aid: tigergraph:tigergraph-query-api
+  name: TigerGraph Query API (Run GSQL Queries)
+  tags:
+  - Query
+  - GSQL
+  - Analytics
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000/restpp
+  properties:
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: Documentation
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: APIReference
+  - url: openapi/tigergraph-openapi.yml
+    type: OpenAPI
+  - url: collections/tigergraph.postman_collection.json
+    type: PostmanCollection
+  - url: collections/tigergraph.opencollection.json
+    type: OpenCollection
+  description: Run installed GSQL queries as dynamic REST++ endpoints via GET/POST
+    /query/{graph}/{queryName}, or run interpreted queries, plus built-in path-finding
+    (shortest path, all paths).
+- aid: tigergraph:tigergraph-schema-api
+  name: TigerGraph Schema API
+  tags:
+  - Schema
+  - Metadata
+  - DDL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000
+  properties:
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: Documentation
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: APIReference
+  - url: openapi/tigergraph-openapi.yml
+    type: OpenAPI
+  - url: collections/tigergraph.postman_collection.json
+    type: PostmanCollection
+  - url: collections/tigergraph.opencollection.json
+    type: OpenCollection
+  description: Retrieve graph schema metadata, list installed endpoints, and run loading
+    jobs (DDL) to ingest data into a graph.
+- aid: tigergraph:tigergraph-auth-tokens-api
+  name: TigerGraph Auth & Tokens API
+  tags:
+  - Authentication
+  - Tokens
+  - Security
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  baseURL: http://localhost:9000/restpp
+  properties:
+  - url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+    type: Documentation
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: APIReference
+  - url: openapi/tigergraph-openapi.yml
+    type: OpenAPI
+  - url: collections/tigergraph.postman_collection.json
+    type: PostmanCollection
+  - url: collections/tigergraph.opencollection.json
+    type: OpenCollection
+  description: Exchange a GSQL-generated secret for a bearer authentication token via
+    POST /requesttoken, refresh or delete tokens, and call /echo and /ping for health
+    checks.
+- aid: tigergraph:tigergraph-savanna-cloud-api
+  name: TigerGraph Savanna (Cloud) API
+  tags:
+  - Cloud
+  - Savanna
+  - Managed
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.tigergraph.com/savanna/main/
+  baseURL: https://<workspace-id>.i.tgcloud.io:443/restpp
+  properties:
+  - url: https://docs.tigergraph.com/savanna/main/
+    type: Documentation
+  - url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+    type: APIReference
+  - url: openapi/tigergraph-openapi.yml
+    type: OpenAPI
+  - url: plans/tigergraph-plans-pricing.yml
+    type: Plans
+  description: The same REST++ surface served by fully managed TigerGraph Savanna workspaces
+    over HTTPS, where compute and storage scale independently with usage-based billing.
+common:
+- type: GitHubOrganization
+  url: https://github.com/tigergraph
+- type: LinkedIn
+  url: https://www.linkedin.com/company/tigergraph
+- type: Website
+  url: https://www.tigergraph.com
+- type: Documentation
+  url: https://docs.tigergraph.com
+- type: Plans
+  url: plans/tigergraph-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/tigergraph-rate-limits.yml
+- type: FinOps
+  url: finops/tigergraph-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

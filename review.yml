@@ -1,0 +1,88 @@
+aid: tigergraph
+name: TigerGraph
+review:
+  question: Does TigerGraph expose a documented public streaming (WebSocket/SSE) API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. The TigerGraph REST++ API is a synchronous
+    request/response HTTP API. No documented WebSocket (ws:// or wss://) or HTTP
+    Server-Sent Events (SSE) streaming transport exists for the database server
+    or for TigerGraph Savanna (Cloud), so there is no event-driven surface to
+    model with AsyncAPI.
+findings:
+  summary: |
+    TigerGraph does not publish a documented public streaming API. The
+    database server exposes the built-in REST++ API over HTTP (default port
+    9000; unified on port 14240 in TigerGraph 3.x and later) and the GSQL
+    server on port 14240. All documented interaction is synchronous
+    request/response: reading, upserting, and deleting vertices and edges,
+    running installed or interpreted GSQL queries, path-finding, schema
+    metadata, loading jobs, and token issuance. Authentication, when enabled,
+    uses a bearer token obtained by POSTing a GSQL-generated secret to
+    /restpp/requesttoken. TigerGraph Savanna serves the same REST++ surface
+    over HTTPS at a per-workspace host. No realtime, bidirectional, or
+    server-push WebSocket or SSE endpoint is documented.
+  transports:
+    - protocol: REST
+      scheme: http
+      baseURL: http://localhost:9000/restpp
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://<workspace-id>.i.tgcloud.io:443/restpp
+      note: TigerGraph Savanna (Cloud) managed workspace.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for the TigerGraph database server, GSQL server, or Savanna as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming transport is documented; REST++ responses are synchronous.
+  endpointsConfirmedRest:
+    - GET    http://localhost:9000/api/ping
+    - GET    http://localhost:9000/restpp/echo
+    - POST   http://localhost:9000/restpp/echo
+    - GET    http://localhost:9000/restpp/version
+    - POST   http://localhost:9000/restpp/requesttoken
+    - GET    http://localhost:9000/restpp/endpoints/{graph_name}
+    - GET    http://localhost:9000/gsql/v1/schema
+    - POST   http://localhost:9000/restpp/ddl/{graph_name}
+    - POST   http://localhost:9000/restpp/graph/{graph_name}
+    - GET    http://localhost:9000/restpp/graph/{graph_name}/vertices/{vertex_type}
+    - GET    http://localhost:9000/restpp/graph/{graph_name}/vertices/{vertex_type}/{vertex_id}
+    - DELETE http://localhost:9000/restpp/graph/{graph_name}/vertices/{vertex_type}
+    - DELETE http://localhost:9000/restpp/graph/{graph_name}/vertices/{vertex_type}/{vertex_id}
+    - GET    http://localhost:9000/restpp/graph/{graph_name}/edges/{source_type}/{source_id}
+    - GET    http://localhost:9000/restpp/graph/{graph_name}/edges/{source_type}/{source_id}/{edge_type}/{target_type}/{target_id}
+    - DELETE http://localhost:9000/restpp/graph/{graph_name}/edges/{source_type}/{source_id}/{edge_type}/{target_type}/{target_id}
+    - GET    http://localhost:9000/restpp/query/{graph_name}/{query_name}
+    - POST   http://localhost:9000/restpp/query/{graph_name}/{query_name}
+    - POST   http://localhost:9000/restpp/interpreted_query/{graph_name}
+    - GET    http://localhost:9000/restpp/path/{graph_name}
+    - GET    http://localhost:9000/restpp/allpaths/{graph_name}
+    - GET    http://localhost:9000/restpp/statistics/{graph_name}
+sources:
+  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+    type: APIReference
+    note: Lists the built-in REST++ and Informant endpoints; all are synchronous HTTP.
+  - url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+    type: Documentation
+    note: POST /requesttoken exchanges a GSQL secret for a bearer token; bearer auth in the Authorization header.
+  - url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+    type: Documentation
+    note: Shows REST++ requests against a Savanna/Cloud workspace over HTTPS.
+  - url: https://docs.tigergraph.com/savanna/main/overview/pricing
+    type: Documentation
+    note: Savanna usage-based compute (per hour by size) and storage (per GB/month) pricing.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE streaming surface exists for TigerGraph. The REST++ API
+    is fully synchronous request/response, so no AsyncAPI document was created
+    and apis.yml references only OpenAPI, Postman, and Open Collection artifacts.
