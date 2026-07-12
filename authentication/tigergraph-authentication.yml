@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/tigergraph-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token obtained from POST /restpp/requesttoken (required only when token
+    authentication is enabled on the TigerGraph server).
+  sources:
+  - openapi/tigergraph-openapi.yml
