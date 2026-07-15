@@ -129,6 +129,8 @@ apis:
   description: The same REST++ surface served by fully managed TigerGraph Savanna workspaces
     over HTTPS, where compute and storage scale independently with usage-based billing.
 common:
+- type: AgenticAccess
+  url: agentic-access/tigergraph-agentic-access.yml
 - type: TrustCenter
   url: security/tigergraph-trust-center.yml
 - type: DomainSecurity
