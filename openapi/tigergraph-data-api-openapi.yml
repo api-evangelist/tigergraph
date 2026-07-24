@@ -1,0 +1,285 @@
+openapi: 3.0.1
+info:
+  title: TigerGraph REST++ Authentication Data API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  termsOfService: https://www.tigergraph.com/legal/
+  contact:
+    name: TigerGraph Support
+    url: https://www.tigergraph.com/support/
+  version: '1.0'
+servers:
+- url: http://localhost:9000
+  description: Self-hosted REST++ server (default port 9000; unified on 14240 in 3.x+)
+- url: https://{workspaceId}.i.tgcloud.io:443
+  description: TigerGraph Savanna (Cloud) managed workspace over HTTPS
+  variables:
+    workspaceId:
+      default: example
+      description: TigerGraph Savanna workspace identifier
+security:
+- bearerAuth: []
+tags:
+- name: Data
+paths:
+  /restpp/graph/{graph_name}:
+    post:
+      operationId: upsertGraph
+      tags:
+      - Data
+      summary: Upsert vertices and edges.
+      description: Inserts or updates vertices and/or edges in a graph. If a vertex or edge does not exist it is inserted; if it exists it is updated.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/graph/{graph_name}/vertices/{vertex_type}:
+    get:
+      operationId: listVertices
+      tags:
+      - Data
+      summary: List vertices of a type.
+      description: Returns all vertices of the given type, with optional select, filter, limit, and sort.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/VertexType'
+      - $ref: '#/components/parameters/Select'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+    delete:
+      operationId: deleteVertices
+      tags:
+      - Data
+      summary: Delete vertices of a type.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/VertexType'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/graph/{graph_name}/vertices/{vertex_type}/{vertex_id}:
+    get:
+      operationId: getVertex
+      tags:
+      - Data
+      summary: Retrieve a single vertex.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/VertexType'
+      - $ref: '#/components/parameters/VertexId'
+      - $ref: '#/components/parameters/Select'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+    delete:
+      operationId: deleteVertex
+      tags:
+      - Data
+      summary: Delete a single vertex.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/VertexType'
+      - $ref: '#/components/parameters/VertexId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/graph/{graph_name}/edges/{source_type}/{source_id}:
+    get:
+      operationId: listEdges
+      tags:
+      - Data
+      summary: List edges from a source vertex.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/SourceType'
+      - $ref: '#/components/parameters/SourceId'
+      - $ref: '#/components/parameters/Select'
+      - $ref: '#/components/parameters/Filter'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Sort'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/graph/{graph_name}/edges/{source_type}/{source_id}/{edge_type}/{target_type}/{target_id}:
+    get:
+      operationId: getEdge
+      tags:
+      - Data
+      summary: Retrieve a specific edge.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/SourceType'
+      - $ref: '#/components/parameters/SourceId'
+      - $ref: '#/components/parameters/EdgeType'
+      - $ref: '#/components/parameters/TargetType'
+      - $ref: '#/components/parameters/TargetId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+    delete:
+      operationId: deleteEdge
+      tags:
+      - Data
+      summary: Delete a specific edge.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - $ref: '#/components/parameters/SourceType'
+      - $ref: '#/components/parameters/SourceId'
+      - $ref: '#/components/parameters/EdgeType'
+      - $ref: '#/components/parameters/TargetType'
+      - $ref: '#/components/parameters/TargetId'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+components:
+  parameters:
+    TargetType:
+      in: path
+      name: target_type
+      required: true
+      schema:
+        type: string
+    SourceType:
+      in: path
+      name: source_type
+      required: true
+      schema:
+        type: string
+    SourceId:
+      in: path
+      name: source_id
+      required: true
+      schema:
+        type: string
+    VertexType:
+      in: path
+      name: vertex_type
+      required: true
+      schema:
+        type: string
+      description: Vertex type name.
+    Limit:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+      description: Maximum number of vertices or edges to return.
+    VertexId:
+      in: path
+      name: vertex_id
+      required: true
+      schema:
+        type: string
+      description: Vertex primary ID.
+    Sort:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+      description: Attribute to sort the results by.
+    TargetId:
+      in: path
+      name: target_id
+      required: true
+      schema:
+        type: string
+    EdgeType:
+      in: path
+      name: edge_type
+      required: true
+      schema:
+        type: string
+    Filter:
+      in: query
+      name: filter
+      required: false
+      schema:
+        type: string
+      description: Attribute-based filter expression.
+    Select:
+      in: query
+      name: select
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of attributes to return.
+    GraphName:
+      in: path
+      name: graph_name
+      required: true
+      schema:
+        type: string
+      description: Name of the target graph.
+  schemas:
+    UpsertRequest:
+      type: object
+      properties:
+        vertices:
+          type: object
+        edges:
+          type: object
+    RestppResponse:
+      type: object
+      properties:
+        version:
+          type: object
+        error:
+          type: boolean
+        message:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from POST /restpp/requesttoken (required only when token authentication is enabled on the TigerGraph server).

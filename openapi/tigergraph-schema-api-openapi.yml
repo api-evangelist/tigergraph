@@ -1,0 +1,122 @@
+openapi: 3.0.1
+info:
+  title: TigerGraph REST++ Authentication Schema API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  termsOfService: https://www.tigergraph.com/legal/
+  contact:
+    name: TigerGraph Support
+    url: https://www.tigergraph.com/support/
+  version: '1.0'
+servers:
+- url: http://localhost:9000
+  description: Self-hosted REST++ server (default port 9000; unified on 14240 in 3.x+)
+- url: https://{workspaceId}.i.tgcloud.io:443
+  description: TigerGraph Savanna (Cloud) managed workspace over HTTPS
+  variables:
+    workspaceId:
+      default: example
+      description: TigerGraph Savanna workspace identifier
+security:
+- bearerAuth: []
+tags:
+- name: Schema
+paths:
+  /restpp/endpoints/{graph_name}:
+    get:
+      operationId: listEndpoints
+      tags:
+      - Schema
+      summary: List installed endpoints.
+      description: Returns a list of built-in, dynamic (compiled GSQL query), and static (user-installed) endpoints and their parameters for the given graph.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /gsql/v1/schema:
+    get:
+      operationId: getSchema
+      tags:
+      - Schema
+      summary: Retrieve graph schema metadata.
+      description: Returns the schema metadata (vertex types, edge types, attributes) for a graph.
+      parameters:
+      - in: query
+        name: graph
+        required: false
+        schema:
+          type: string
+        description: Graph name to scope the schema to.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /restpp/ddl/{graph_name}:
+    post:
+      operationId: runLoadingJob
+      tags:
+      - Schema
+      summary: Run a loading job (DDL).
+      description: Ingests data into a graph using a previously defined loading job.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - in: query
+        name: tag
+        required: true
+        schema:
+          type: string
+        description: Name of the loading job to run.
+      - in: query
+        name: filename
+        required: true
+        schema:
+          type: string
+        description: Filename variable defined in the loading job.
+      requestBody:
+        required: true
+        content:
+          text/csv:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+components:
+  parameters:
+    GraphName:
+      in: path
+      name: graph_name
+      required: true
+      schema:
+        type: string
+      description: Name of the target graph.
+  schemas:
+    RestppResponse:
+      type: object
+      properties:
+        version:
+          type: object
+        error:
+          type: boolean
+        message:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from POST /restpp/requesttoken (required only when token authentication is enabled on the TigerGraph server).

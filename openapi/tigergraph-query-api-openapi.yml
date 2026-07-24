@@ -1,0 +1,151 @@
+openapi: 3.0.1
+info:
+  title: TigerGraph REST++ Authentication Query API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  termsOfService: https://www.tigergraph.com/legal/
+  contact:
+    name: TigerGraph Support
+    url: https://www.tigergraph.com/support/
+  version: '1.0'
+servers:
+- url: http://localhost:9000
+  description: Self-hosted REST++ server (default port 9000; unified on 14240 in 3.x+)
+- url: https://{workspaceId}.i.tgcloud.io:443
+  description: TigerGraph Savanna (Cloud) managed workspace over HTTPS
+  variables:
+    workspaceId:
+      default: example
+      description: TigerGraph Savanna workspace identifier
+security:
+- bearerAuth: []
+tags:
+- name: Query
+paths:
+  /restpp/query/{graph_name}/{query_name}:
+    get:
+      operationId: runInstalledQueryGet
+      tags:
+      - Query
+      summary: Run an installed GSQL query (GET).
+      description: Runs an installed GSQL query exposed as a dynamic REST++ endpoint, passing query parameters as URL query string parameters.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - in: path
+        name: query_name
+        required: true
+        schema:
+          type: string
+        description: Name of the installed GSQL query.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+    post:
+      operationId: runInstalledQueryPost
+      tags:
+      - Query
+      summary: Run an installed GSQL query (POST).
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - in: path
+        name: query_name
+        required: true
+        schema:
+          type: string
+        description: Name of the installed GSQL query.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/interpreted_query/{graph_name}:
+    post:
+      operationId: runInterpretedQuery
+      tags:
+      - Query
+      summary: Run an interpreted GSQL query.
+      description: Runs a GSQL query in interpreted mode without installing it first.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/path/{graph_name}:
+    get:
+      operationId: shortestPath
+      tags:
+      - Query
+      summary: Find the shortest path between vertices.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/allpaths/{graph_name}:
+    get:
+      operationId: allPaths
+      tags:
+      - Query
+      summary: Find all paths between vertices.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+components:
+  parameters:
+    GraphName:
+      in: path
+      name: graph_name
+      required: true
+      schema:
+        type: string
+      description: Name of the target graph.
+  schemas:
+    RestppResponse:
+      type: object
+      properties:
+        version:
+          type: object
+        error:
+          type: boolean
+        message:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from POST /restpp/requesttoken (required only when token authentication is enabled on the TigerGraph server).

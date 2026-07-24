@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: TigerGraph REST++ Authentication API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  termsOfService: https://www.tigergraph.com/legal/
+  contact:
+    name: TigerGraph Support
+    url: https://www.tigergraph.com/support/
+  version: '1.0'
+servers:
+- url: http://localhost:9000
+  description: Self-hosted REST++ server (default port 9000; unified on 14240 in 3.x+)
+- url: https://{workspaceId}.i.tgcloud.io:443
+  description: TigerGraph Savanna (Cloud) managed workspace over HTTPS
+  variables:
+    workspaceId:
+      default: example
+      description: TigerGraph Savanna workspace identifier
+security:
+- bearerAuth: []
+tags:
+- name: Authentication
+paths:
+  /restpp/requesttoken:
+    post:
+      operationId: requestToken
+      tags:
+      - Authentication
+      summary: Request an authentication token.
+      description: Exchanges a GSQL-generated secret for a bearer authentication token. When token authentication is enabled, the returned token is used in the Authorization header for subsequent REST++ requests.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestTokenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestTokenResponse'
+components:
+  schemas:
+    RequestTokenResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          example: REST-0000
+        expiration:
+          type: integer
+        error:
+          type: boolean
+        message:
+          type: string
+        token:
+          type: string
+    RequestTokenRequest:
+      type: object
+      properties:
+        secret:
+          type: string
+          description: GSQL-generated secret.
+        lifetime:
+          type: string
+          description: Token lifetime in seconds (default approximately one month).
+      required:
+      - secret
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from POST /restpp/requesttoken (required only when token authentication is enabled on the TigerGraph server).

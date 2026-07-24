@@ -1,0 +1,132 @@
+openapi: 3.0.1
+info:
+  title: TigerGraph REST++ Authentication System API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  termsOfService: https://www.tigergraph.com/legal/
+  contact:
+    name: TigerGraph Support
+    url: https://www.tigergraph.com/support/
+  version: '1.0'
+servers:
+- url: http://localhost:9000
+  description: Self-hosted REST++ server (default port 9000; unified on 14240 in 3.x+)
+- url: https://{workspaceId}.i.tgcloud.io:443
+  description: TigerGraph Savanna (Cloud) managed workspace over HTTPS
+  variables:
+    workspaceId:
+      default: example
+      description: TigerGraph Savanna workspace identifier
+security:
+- bearerAuth: []
+tags:
+- name: System
+paths:
+  /api/ping:
+    get:
+      operationId: ping
+      tags:
+      - System
+      summary: Health check.
+      description: Returns a success response if the REST++ server is up and reachable.
+      security: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/echo:
+    get:
+      operationId: echoGet
+      tags:
+      - System
+      summary: Echo a request.
+      description: Returns a canned response confirming the server can receive requests.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+    post:
+      operationId: echoPost
+      tags:
+      - System
+      summary: Echo a POST request.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/version:
+    get:
+      operationId: getVersion
+      tags:
+      - System
+      summary: Show component versions.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+  /restpp/statistics/{graph_name}:
+    get:
+      operationId: getStatistics
+      tags:
+      - System
+      summary: Get recent query performance statistics.
+      parameters:
+      - $ref: '#/components/parameters/GraphName'
+      - in: query
+        name: seconds
+        required: false
+        schema:
+          type: integer
+        description: Look-back window in seconds.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestppResponse'
+components:
+  parameters:
+    GraphName:
+      in: path
+      name: graph_name
+      required: true
+      schema:
+        type: string
+      description: Name of the target graph.
+  schemas:
+    RestppResponse:
+      type: object
+      properties:
+        version:
+          type: object
+        error:
+          type: boolean
+        message:
+          type: string
+        results:
+          type: array
+          items:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token obtained from POST /restpp/requesttoken (required only when token authentication is enabled on the TigerGraph server).
