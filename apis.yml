@@ -7,7 +7,20 @@ description: TigerGraph is a distributed, native parallel graph database and ana
   vertices and edges, running installed GSQL queries, managing schema, and issuing
   authentication tokens, alongside the GSQL server and the fully managed TigerGraph
   Savanna (Cloud) service.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/tigergraph.png
 tags:
 - Graph Database
 - Analytics
@@ -18,116 +31,136 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: tigergraph:tigergraph-restpp-data-api
-  name: TigerGraph REST++ Data API (Vertices & Edges)
-  tags:
-  - Vertices
-  - Edges
-  - Upsert
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: tigergraph:tigergraph-authentication-api
+  name: TigerGraph Authentication API
+  description: The Authentication API from TigerGraph — 1 operation(s) for authentication.
   humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
   baseURL: http://localhost:9000/restpp
-  properties:
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: Documentation
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: APIReference
-  - url: openapi/tigergraph-openapi.yml
-    type: OpenAPI
-  - url: collections/tigergraph.postman_collection.json
-    type: PostmanCollection
-  - url: collections/tigergraph.opencollection.json
-    type: OpenCollection
-  description: Built-in REST++ endpoints to retrieve, upsert, and delete vertices and
-    edges in a graph by type and ID, with select / filter / limit / sort parameters.
-- aid: tigergraph:tigergraph-query-api
-  name: TigerGraph Query API (Run GSQL Queries)
-  tags:
-  - Query
-  - GSQL
-  - Analytics
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-  baseURL: http://localhost:9000/restpp
-  properties:
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: Documentation
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: APIReference
-  - url: openapi/tigergraph-openapi.yml
-    type: OpenAPI
-  - url: collections/tigergraph.postman_collection.json
-    type: PostmanCollection
-  - url: collections/tigergraph.opencollection.json
-    type: OpenCollection
-  description: Run installed GSQL queries as dynamic REST++ endpoints via GET/POST
-    /query/{graph}/{queryName}, or run interpreted queries, plus built-in path-finding
-    (shortest path, all paths).
-- aid: tigergraph:tigergraph-schema-api
-  name: TigerGraph Schema API
-  tags:
-  - Schema
-  - Metadata
-  - DDL
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-  baseURL: http://localhost:9000
-  properties:
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: Documentation
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: APIReference
-  - url: openapi/tigergraph-openapi.yml
-    type: OpenAPI
-  - url: collections/tigergraph.postman_collection.json
-    type: PostmanCollection
-  - url: collections/tigergraph.opencollection.json
-    type: OpenCollection
-  description: Retrieve graph schema metadata, list installed endpoints, and run loading
-    jobs (DDL) to ingest data into a graph.
-- aid: tigergraph:tigergraph-auth-tokens-api
-  name: TigerGraph Auth & Tokens API
   tags:
   - Authentication
-  - Tokens
-  - Security
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/tigergraph-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: APIReference
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: PostmanCollection
+    url: collections/tigergraph.postman_collection.json
+  - type: OpenCollection
+    url: collections/tigergraph.opencollection.json
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  - type: Documentation
+    url: https://docs.tigergraph.com/savanna/main/
+  - type: APIReference
+    url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+  - type: Plans
+    url: plans/tigergraph-plans-pricing.yml
+- aid: tigergraph:tigergraph-data-api
+  name: TigerGraph Data API
+  description: The Data API from TigerGraph — 5 operation(s) for data.
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
   baseURL: http://localhost:9000/restpp
-  properties:
-  - url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
-    type: Documentation
-  - url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
-    type: APIReference
-  - url: openapi/tigergraph-openapi.yml
-    type: OpenAPI
-  - url: collections/tigergraph.postman_collection.json
-    type: PostmanCollection
-  - url: collections/tigergraph.opencollection.json
-    type: OpenCollection
-  description: Exchange a GSQL-generated secret for a bearer authentication token via
-    POST /requesttoken, refresh or delete tokens, and call /echo and /ping for health
-    checks.
-- aid: tigergraph:tigergraph-savanna-cloud-api
-  name: TigerGraph Savanna (Cloud) API
   tags:
-  - Cloud
-  - Savanna
-  - Managed
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.tigergraph.com/savanna/main/
-  baseURL: https://<workspace-id>.i.tgcloud.io:443/restpp
+  - Data
   properties:
-  - url: https://docs.tigergraph.com/savanna/main/
-    type: Documentation
-  - url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
-    type: APIReference
-  - url: openapi/tigergraph-openapi.yml
-    type: OpenAPI
-  - url: plans/tigergraph-plans-pricing.yml
-    type: Plans
-  description: The same REST++ surface served by fully managed TigerGraph Savanna workspaces
-    over HTTPS, where compute and storage scale independently with usage-based billing.
+  - type: OpenAPI
+    url: openapi/tigergraph-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: APIReference
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: PostmanCollection
+    url: collections/tigergraph.postman_collection.json
+  - type: OpenCollection
+    url: collections/tigergraph.opencollection.json
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  - type: Documentation
+    url: https://docs.tigergraph.com/savanna/main/
+  - type: APIReference
+    url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+  - type: Plans
+    url: plans/tigergraph-plans-pricing.yml
+- aid: tigergraph:tigergraph-query-api
+  name: TigerGraph Query API
+  description: The Query API from TigerGraph — 4 operation(s) for query.
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000/restpp
+  tags:
+  - Query
+  properties:
+  - type: OpenAPI
+    url: openapi/tigergraph-query-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: APIReference
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: PostmanCollection
+    url: collections/tigergraph.postman_collection.json
+  - type: OpenCollection
+    url: collections/tigergraph.opencollection.json
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  - type: Documentation
+    url: https://docs.tigergraph.com/savanna/main/
+  - type: APIReference
+    url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+  - type: Plans
+    url: plans/tigergraph-plans-pricing.yml
+- aid: tigergraph:tigergraph-schema-api
+  name: TigerGraph Schema API
+  description: The Schema API from TigerGraph — 3 operation(s) for schema.
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000/restpp
+  tags:
+  - Schema
+  properties:
+  - type: OpenAPI
+    url: openapi/tigergraph-schema-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: APIReference
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: PostmanCollection
+    url: collections/tigergraph.postman_collection.json
+  - type: OpenCollection
+    url: collections/tigergraph.opencollection.json
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  - type: Documentation
+    url: https://docs.tigergraph.com/savanna/main/
+  - type: APIReference
+    url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+  - type: Plans
+    url: plans/tigergraph-plans-pricing.yml
+- aid: tigergraph:tigergraph-system-api
+  name: TigerGraph System API
+  description: The System API from TigerGraph — 4 operation(s) for system.
+  humanURL: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  baseURL: http://localhost:9000/restpp
+  tags:
+  - System
+  properties:
+  - type: OpenAPI
+    url: openapi/tigergraph-system-api-openapi.yml
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: APIReference
+    url: https://docs.tigergraph.com/tigergraph-server/current/api/built-in-endpoints
+  - type: PostmanCollection
+    url: collections/tigergraph.postman_collection.json
+  - type: OpenCollection
+    url: collections/tigergraph.opencollection.json
+  - type: Documentation
+    url: https://docs.tigergraph.com/tigergraph-server/current/API/authentication
+  - type: Documentation
+    url: https://docs.tigergraph.com/savanna/main/
+  - type: APIReference
+    url: https://docs.tigergraph.com/cloud/main/solutions/access-solution/rest-requests
+  - type: Plans
+    url: plans/tigergraph-plans-pricing.yml
 common:
 - type: AgenticAccess
   url: agentic-access/tigergraph-agentic-access.yml
