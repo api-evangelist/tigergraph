@@ -1,0 +1,22 @@
+{
+  "provider": "tigergraph",
+  "sources": [
+    "tigergraph-authentication-api-openapi.yml",
+    "tigergraph-data-api-openapi.yml",
+    "tigergraph-query-api-openapi.yml",
+    "tigergraph-schema-api-openapi.yml",
+    "tigergraph-system-api-openapi.yml"
+  ],
+  "outputs": [
+    "tigergraph-authentication-api-openapi.yml",
+    "tigergraph-data-api-openapi.yml",
+    "tigergraph-query-api-openapi.yml",
+    "tigergraph-schema-api-openapi.yml",
+    "tigergraph-system-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
