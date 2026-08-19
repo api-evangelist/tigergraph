@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TigerGraph REST++ Authentication System API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health check.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/api/ping"
+          },
+          "docs": "Returns a success response if the REST++ server is up and reachable."
+        },
+        {
+          "info": {
+            "name": "Echo a request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/echo"
+          },
+          "docs": "Returns a canned response confirming the server can receive requests."
+        },
+        {
+          "info": {
+            "name": "Echo a POST request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/echo",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Echo a POST request."
+        },
+        {
+          "info": {
+            "name": "Show component versions.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/version"
+          },
+          "docs": "Show component versions."
+        },
+        {
+          "info": {
+            "name": "Get recent query performance statistics.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/statistics/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "seconds",
+                "value": "",
+                "type": "query",
+                "description": "Look-back window in seconds."
+              }
+            ]
+          },
+          "docs": "Get recent query performance statistics."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

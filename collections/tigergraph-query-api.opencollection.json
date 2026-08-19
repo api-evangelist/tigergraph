@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TigerGraph REST++ Authentication Query API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run an installed GSQL query (GET).",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/query/:graph_name/:query_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "query_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the installed GSQL query."
+              }
+            ]
+          },
+          "docs": "Runs an installed GSQL query exposed as a dynamic REST++ endpoint, passing query parameters as URL query string parameters."
+        },
+        {
+          "info": {
+            "name": "Run an installed GSQL query (POST).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/query/:graph_name/:query_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "query_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the installed GSQL query."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run an installed GSQL query (POST)."
+        },
+        {
+          "info": {
+            "name": "Run an interpreted GSQL query.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/interpreted_query/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              }
+            ]
+          },
+          "docs": "Runs a GSQL query in interpreted mode without installing it first."
+        },
+        {
+          "info": {
+            "name": "Find the shortest path between vertices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/path/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              }
+            ]
+          },
+          "docs": "Find the shortest path between vertices."
+        },
+        {
+          "info": {
+            "name": "Find all paths between vertices.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/allpaths/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              }
+            ]
+          },
+          "docs": "Find all paths between vertices."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

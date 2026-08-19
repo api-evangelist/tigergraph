@@ -1,0 +1,348 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TigerGraph REST++ Authentication Data API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upsert vertices and edges.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/graph/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inserts or updates vertices and/or edges in a graph. If a vertex or edge does not exist it is inserted; if it exists it is updated."
+        },
+        {
+          "info": {
+            "name": "List vertices of a type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/vertices/:vertex_type",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "vertex_type",
+                "value": "",
+                "type": "path",
+                "description": "Vertex type name."
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of attributes to return."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Attribute-based filter expression."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of vertices or edges to return."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Attribute to sort the results by."
+              }
+            ]
+          },
+          "docs": "Returns all vertices of the given type, with optional select, filter, limit, and sort."
+        },
+        {
+          "info": {
+            "name": "Delete vertices of a type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/vertices/:vertex_type",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "vertex_type",
+                "value": "",
+                "type": "path",
+                "description": "Vertex type name."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Attribute-based filter expression."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of vertices or edges to return."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Attribute to sort the results by."
+              }
+            ]
+          },
+          "docs": "Delete vertices of a type."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single vertex.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/vertices/:vertex_type/:vertex_id",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "vertex_type",
+                "value": "",
+                "type": "path",
+                "description": "Vertex type name."
+              },
+              {
+                "name": "vertex_id",
+                "value": "",
+                "type": "path",
+                "description": "Vertex primary ID."
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of attributes to return."
+              }
+            ]
+          },
+          "docs": "Retrieve a single vertex."
+        },
+        {
+          "info": {
+            "name": "Delete a single vertex.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/vertices/:vertex_type/:vertex_id",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "vertex_type",
+                "value": "",
+                "type": "path",
+                "description": "Vertex type name."
+              },
+              {
+                "name": "vertex_id",
+                "value": "",
+                "type": "path",
+                "description": "Vertex primary ID."
+              }
+            ]
+          },
+          "docs": "Delete a single vertex."
+        },
+        {
+          "info": {
+            "name": "List edges from a source vertex.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/edges/:source_type/:source_id",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of attributes to return."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Attribute-based filter expression."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of vertices or edges to return."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Attribute to sort the results by."
+              }
+            ]
+          },
+          "docs": "List edges from a source vertex."
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific edge.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/edges/:source_type/:source_id/:edge_type/:target_type/:target_id",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "edge_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "target_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific edge."
+        },
+        {
+          "info": {
+            "name": "Delete a specific edge.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:9000/restpp/graph/:graph_name/edges/:source_type/:source_id/:edge_type/:target_type/:target_id",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "source_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "edge_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "target_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "target_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a specific edge."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

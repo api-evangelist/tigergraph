@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "TigerGraph REST++ Authentication Schema API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schema",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List installed endpoints.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/restpp/endpoints/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              }
+            ]
+          },
+          "docs": "Returns a list of built-in, dynamic (compiled GSQL query), and static (user-installed) endpoints and their parameters for the given graph."
+        },
+        {
+          "info": {
+            "name": "Retrieve graph schema metadata.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:9000/gsql/v1/schema",
+            "params": [
+              {
+                "name": "graph",
+                "value": "",
+                "type": "query",
+                "description": "Graph name to scope the schema to."
+              }
+            ]
+          },
+          "docs": "Returns the schema metadata (vertex types, edge types, attributes) for a graph."
+        },
+        {
+          "info": {
+            "name": "Run a loading job (DDL).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:9000/restpp/ddl/:graph_name",
+            "params": [
+              {
+                "name": "graph_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the target graph."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Name of the loading job to run."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Filename variable defined in the loading job."
+              }
+            ]
+          },
+          "docs": "Ingests data into a graph using a previously defined loading job."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

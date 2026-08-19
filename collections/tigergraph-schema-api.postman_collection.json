@@ -1,0 +1,364 @@
+{
+  "item": [
+    {
+      "id": "9cc03f97-4c91-4071-94d1-8c8cf093dbf0",
+      "name": "Schema",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "603c5cc4-9f52-4a3b-b44c-405237289ef9",
+          "name": "List installed endpoints.",
+          "request": {
+            "name": "List installed endpoints.",
+            "description": {
+              "content": "Returns a list of built-in, dynamic (compiled GSQL query), and static (user-installed) endpoints and their parameters for the given graph.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restpp",
+                "endpoints",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "graph_name",
+                  "description": "(Required) Name of the target graph."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5dca02d4-cac2-4ba9-825b-0e57cd3cfee9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restpp",
+                    "endpoints",
+                    ":graph_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "graph_name",
+                      "description": "(Required) Name of the target graph."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a176cdf0-854c-4750-a2b6-770bee7d46e9",
+          "name": "Retrieve graph schema metadata.",
+          "request": {
+            "name": "Retrieve graph schema metadata.",
+            "description": {
+              "content": "Returns the schema metadata (vertex types, edge types, attributes) for a graph.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "gsql",
+                "v1",
+                "schema"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "graph",
+                  "value": "<string>",
+                  "description": "Graph name to scope the schema to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3bada35f-ff68-4022-8d63-af88adb0504b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "gsql",
+                    "v1",
+                    "schema"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "graph",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dbfcddd5-6158-4397-a55d-53db5bfaa7e5",
+          "name": "Run a loading job (DDL).",
+          "request": {
+            "name": "Run a loading job (DDL).",
+            "description": {
+              "content": "Ingests data into a graph using a previously defined loading job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restpp",
+                "ddl",
+                ":graph_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "(Required) Name of the loading job to run."
+                },
+                {
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>",
+                  "description": "(Required) Filename variable defined in the loading job."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "graph_name",
+                  "description": "(Required) Name of the target graph."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/csv"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "56c57e11-f0ad-44dc-8db9-ad2a55d6ade3",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restpp",
+                    "ddl",
+                    ":graph_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filename",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "graph_name",
+                      "description": "(Required) Name of the target graph."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<string>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": {},\n  \"error\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:9000",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d30a6085-a18a-4df8-a2c1-b31417157f5f",
+    "name": "TigerGraph REST++ Authentication Schema API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.\n\nContact Support:\n Name: TigerGraph Support",
+      "type": "text/plain"
+    }
+  }
+}
