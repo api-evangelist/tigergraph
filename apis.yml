@@ -7,6 +7,18 @@ description: TigerGraph is a distributed, native parallel graph database and ana
   vertices and edges, running installed GSQL queries, managing schema, and issuing
   authentication tokens, alongside the GSQL server and the fully managed TigerGraph
   Savanna (Cloud) service.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
