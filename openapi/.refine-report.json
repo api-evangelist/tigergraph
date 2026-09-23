@@ -1,11 +1,7 @@
 {
   "provider": "tigergraph",
   "sources": [
-    "tigergraph-authentication-api-openapi.yml",
-    "tigergraph-data-api-openapi.yml",
-    "tigergraph-query-api-openapi.yml",
-    "tigergraph-schema-api-openapi.yml",
-    "tigergraph-system-api-openapi.yml"
+    "_original/tigergraph-openapi.yml"
   ],
   "outputs": [
     "tigergraph-authentication-api-openapi.yml",
@@ -17,6 +13,21 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tigergraph-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "tigergraph-openapi.yml: declared missing tag: Authentication",
+    "tigergraph-openapi.yml: declared missing tag: Data",
+    "tigergraph-openapi.yml: declared missing tag: Query",
+    "tigergraph-openapi.yml: declared missing tag: Schema",
+    "tigergraph-openapi.yml: declared missing tag: System",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "tigergraph-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tigergraph-data-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tigergraph-query-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tigergraph-schema-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tigergraph-system-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

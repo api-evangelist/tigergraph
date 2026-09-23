@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: TigerGraph REST++ Authentication Schema API
-  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server. REST++ provides built-in endpoints to read, upsert, and delete vertices and edges, run installed GSQL queries as dynamic endpoints, find paths, retrieve schema metadata, run loading jobs, and issue bearer authentication tokens. By default REST++ listens on port 9000 (unified on port 14240 in TigerGraph 3.x and later); the GSQL server listens on port 14240. TigerGraph Savanna (Cloud) serves the same surface over HTTPS at a per-workspace host.
+  title: TigerGraph REST++ Schema API
+  description: Specification of the built-in TigerGraph REST++ API exposed by the TigerGraph database server.
   termsOfService: https://www.tigergraph.com/legal/
   contact:
     name: TigerGraph Support
@@ -26,7 +26,7 @@ paths:
       operationId: listEndpoints
       tags:
       - Schema
-      summary: List installed endpoints.
+      summary: List installed endpoints
       description: Returns a list of built-in, dynamic (compiled GSQL query), and static (user-installed) endpoints and their parameters for the given graph.
       parameters:
       - $ref: '#/components/parameters/GraphName'
@@ -42,7 +42,7 @@ paths:
       operationId: getSchema
       tags:
       - Schema
-      summary: Retrieve graph schema metadata.
+      summary: Retrieve graph schema metadata
       description: Returns the schema metadata (vertex types, edge types, attributes) for a graph.
       parameters:
       - in: query
@@ -63,7 +63,7 @@ paths:
       operationId: runLoadingJob
       tags:
       - Schema
-      summary: Run a loading job (DDL).
+      summary: Run a loading job (DDL)
       description: Ingests data into a graph using a previously defined loading job.
       parameters:
       - $ref: '#/components/parameters/GraphName'
