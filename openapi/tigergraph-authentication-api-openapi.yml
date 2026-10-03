@@ -44,17 +44,6 @@ paths:
                 $ref: '#/components/schemas/RequestTokenResponse'
 components:
   schemas:
-    RequestTokenRequest:
-      type: object
-      properties:
-        secret:
-          type: string
-          description: GSQL-generated secret.
-        lifetime:
-          type: string
-          description: Token lifetime in seconds (default approximately one month).
-      required:
-      - secret
     RequestTokenResponse:
       type: object
       properties:
@@ -69,6 +58,17 @@ components:
           type: string
         token:
           type: string
+    RequestTokenRequest:
+      type: object
+      properties:
+        secret:
+          type: string
+          description: GSQL-generated secret.
+        lifetime:
+          type: string
+          description: Token lifetime in seconds (default approximately one month).
+      required:
+      - secret
   securitySchemes:
     bearerAuth:
       type: http

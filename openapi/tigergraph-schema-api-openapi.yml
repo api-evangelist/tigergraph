@@ -93,6 +93,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/RestppResponse'
 components:
+  parameters:
+    GraphName:
+      in: path
+      name: graph_name
+      required: true
+      schema:
+        type: string
+      description: Name of the target graph.
   schemas:
     RestppResponse:
       type: object
@@ -107,14 +115,6 @@ components:
           type: array
           items:
             type: object
-  parameters:
-    GraphName:
-      in: path
-      name: graph_name
-      required: true
-      schema:
-        type: string
-      description: Name of the target graph.
   securitySchemes:
     bearerAuth:
       type: http
