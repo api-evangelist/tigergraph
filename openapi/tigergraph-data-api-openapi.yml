@@ -178,13 +178,18 @@ paths:
                 $ref: '#/components/schemas/RestppResponse'
 components:
   parameters:
-    Filter:
-      in: query
-      name: filter
-      required: false
+    EdgeType:
+      in: path
+      name: edge_type
+      required: true
       schema:
         type: string
-      description: Attribute-based filter expression.
+    SourceId:
+      in: path
+      name: source_id
+      required: true
+      schema:
+        type: string
     VertexType:
       in: path
       name: vertex_type
@@ -192,30 +197,23 @@ components:
       schema:
         type: string
       description: Vertex type name.
-    Select:
+    Filter:
       in: query
-      name: select
+      name: filter
       required: false
       schema:
         type: string
-      description: Comma-separated list of attributes to return.
-    VertexId:
+      description: Attribute-based filter expression.
+    GraphName:
       in: path
-      name: vertex_id
+      name: graph_name
       required: true
       schema:
         type: string
-      description: Vertex primary ID.
-    Sort:
-      in: query
-      name: sort
-      required: false
-      schema:
-        type: string
-      description: Attribute to sort the results by.
-    SourceId:
+      description: Name of the target graph.
+    TargetType:
       in: path
-      name: source_id
+      name: target_type
       required: true
       schema:
         type: string
@@ -225,31 +223,26 @@ components:
       required: true
       schema:
         type: string
-    GraphName:
+    VertexId:
       in: path
-      name: graph_name
+      name: vertex_id
       required: true
       schema:
         type: string
-      description: Name of the target graph.
-    EdgeType:
-      in: path
-      name: edge_type
-      required: true
-      schema:
-        type: string
-    TargetType:
-      in: path
-      name: target_type
-      required: true
-      schema:
-        type: string
+      description: Vertex primary ID.
     SourceType:
       in: path
       name: source_type
       required: true
       schema:
         type: string
+    Sort:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+      description: Attribute to sort the results by.
     Limit:
       in: query
       name: limit
@@ -257,7 +250,21 @@ components:
       schema:
         type: integer
       description: Maximum number of vertices or edges to return.
+    Select:
+      in: query
+      name: select
+      required: false
+      schema:
+        type: string
+      description: Comma-separated list of attributes to return.
   schemas:
+    UpsertRequest:
+      type: object
+      properties:
+        vertices:
+          type: object
+        edges:
+          type: object
     RestppResponse:
       type: object
       properties:
@@ -271,13 +278,6 @@ components:
           type: array
           items:
             type: object
-    UpsertRequest:
-      type: object
-      properties:
-        vertices:
-          type: object
-        edges:
-          type: object
   securitySchemes:
     bearerAuth:
       type: http
